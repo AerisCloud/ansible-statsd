@@ -22,6 +22,9 @@
   npm: executable={{ npm_path }} name={{ item }} path={{ statsd_path }} global=yes state=present
   with_items:
     - statsd-librato-backend
+    - statsd-instrumental-backend
+    - statsd-ducksboard-backend
+    - js-yaml
   tags:
     - statsd
     - pkgs

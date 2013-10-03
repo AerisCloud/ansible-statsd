@@ -99,28 +99,48 @@ Optional Variables:
 
 */
 {
-  port: 8125
- ,backends: [
-      "./backends/console"
+  port: 8125,
+  backends: [
       {% if use_librato is defined and use_librato == true %}
-     ,"statsd-librato-backend"
+      "statsd-librato-backend",
+      {% endif %}
+      {% if use_instrumental is defined and use_instrumental == true %}
+      "statsd-instrumental-backend",
+      {% endif %}
+      {% if use_ducksboard is defined and use_ducksboard == true %}
+      "statsd-ducksboard-backend",
       {% endif %}
       {% if use_graphite is defined and use_graphite == true %}
-     ,"./backends/graphite"
+      "./backends/graphite",
       {% endif %}
-  ]
- ,console: {
-     prettyprint: false
-  }
+  ],
+  {% if use_instrumental is defined and use_instrumental == true %}
+  // https://github.com/collectiveidea/statsd-instrumental-backend
+  instrumental: {
+    key: "{{ instrumental_key }}"
+  },
+  {% endif %}
   {% if use_librato is defined and use_librato == true %}
- ,librato: {
-    email:  "{{ librato_email }}"
-   ,token:  "{{ librato_token }}"
-   ,source: "{{ inventory_hostname }}"
+  // https://github.com/librato/statsd-librato-backend
+  librato: {
+    email:  "{{ librato_email }}",
+    token:  "{{ librato_token }}",
+    source: "{{ inventory_hostname }}"
   }
   {% endif %}
+  {% if use_ducksboard is defined and use_ducksboard == true %}
+  // https://github.com/mcuadros/statsd-ducksboard-backend
+  // TODO: metrics should probably be an assemble
+  // of all producs we have in the DC (maybe
+  // curl metrics files from all games or something?)
+  ducksboard: {
+    apikey: "{{ ducksboard_apikey }}",
+    cache: '/tmp/',
+    definitions: './metrics.yaml'
+  },
+  {% endif %}
   {% if use_graphite is defined and use_graphite == true %}
-  ,graphiteHost: "{{ graphite_host }}"
-  ,graphitePort: {{ graphite_port }}
+  graphiteHost: "{{ graphite_host }}",
+  graphitePort: {{ graphite_port }}
   {% endif %}
 }
