@@ -1,0 +1,5 @@
+- name: Restart StatsD
+  service: name=statsd state=restarted
+  tags:
+    - statsd
+
