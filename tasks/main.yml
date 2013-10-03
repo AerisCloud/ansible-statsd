@@ -45,7 +45,7 @@
     - pkgs
 
 - name: Install statsd init.d script
-  template: src=statsd.init.sh dest=/etc/init.d/statsd owner=statsd group=statsd mode=0700
+  template: src=statsd.init.sh.j2 dest=/etc/init.d/statsd owner=statsd group=statsd mode=0700
   notify:
     - Restart StatsD
   tags:
@@ -60,7 +60,7 @@
     - configs
 
 - name: Install StatsD config file
-  template: src=config.js dest=/etc/statsd/config.js owner=statsd group=statsd mode=0600
+  template: src=config.js.j2 dest=/etc/statsd/config.js owner=statsd group=statsd mode=0600
   tags:
     - statsd
     - files
