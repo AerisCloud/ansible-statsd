@@ -101,26 +101,26 @@ Optional Variables:
 {
   port: 8125,
   backends: [
-      {% if use_librato is defined and use_librato == true %}
+      {% if use_librato is defined and use_librato  == "true" %}
       "statsd-librato-backend",
       {% endif %}
-      {% if use_instrumental is defined and use_instrumental == true %}
+      {% if use_instrumental is defined and use_instrumental  == "true" %}
       "statsd-instrumental-backend",
       {% endif %}
-      {% if use_ducksboard is defined and use_ducksboard == true %}
+      {% if use_ducksboard is defined and use_ducksboard  == "true" %}
       "statsd-ducksboard-backend",
       {% endif %}
-      {% if use_graphite is defined and use_graphite == true %}
+      {% if use_graphite is defined and use_graphite  == "true" %}
       "./backends/graphite",
       {% endif %}
   ],
-  {% if use_instrumental is defined and use_instrumental == true %}
+  {% if use_instrumental is defined and use_instrumental  == "true" %}
   // https://github.com/collectiveidea/statsd-instrumental-backend
   instrumental: {
     key: "{{ instrumental_key }}"
   },
   {% endif %}
-  {% if use_librato is defined and use_librato == true %}
+  {% if use_librato is defined and use_librato  == "true" %}
   // https://github.com/librato/statsd-librato-backend
   librato: {
     email:  "{{ librato_email }}",
@@ -128,7 +128,7 @@ Optional Variables:
     source: "{{ inventory_hostname }}"
   }
   {% endif %}
-  {% if use_ducksboard is defined and use_ducksboard == true %}
+  {% if use_ducksboard is defined and use_ducksboard  == "true" %}
   // https://github.com/mcuadros/statsd-ducksboard-backend
   // TODO: metrics should probably be an assemble
   // of all producs we have in the DC (maybe
@@ -139,7 +139,7 @@ Optional Variables:
     definitions: './metrics.yaml'
   },
   {% endif %}
-  {% if use_graphite is defined and use_graphite == true %}
+  {% if use_graphite is defined and use_graphite  == "true" %}
   graphiteHost: "{{ graphite_host }}",
   graphitePort: {{ graphite_port }}
   {% endif %}

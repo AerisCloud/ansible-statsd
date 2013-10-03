@@ -19,7 +19,7 @@
     - pkgs
 
 - name: Install required StatsD backends
-  npm: executable={{ npm_path }} name={{ item }} path={{ statsd_path }} global=yes state=present
+  npm: executable={{ npm_path }} name={{ item }} path={{ statsd_path }} state=present
   with_items:
     - statsd-librato-backend
     - statsd-instrumental-backend

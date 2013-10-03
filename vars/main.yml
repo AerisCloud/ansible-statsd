@@ -1,6 +1,4 @@
 statsd_path: /opt/statsd
-librato_email: mtrudel@wizcorp.jp
-librato_token:
 
 node_dir: "{{ nvm_dir }}/v{{ node_version }}"
 npm_path: "{{ node_dir }}/bin/npm"
