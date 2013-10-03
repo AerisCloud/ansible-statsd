@@ -1,0 +1,10 @@
+- fail: msg="The XTraDB Playbook does not support Ubuntu"
+
+- name: Install python-mysqldb
+  apt: name=python-mysqldb state=installed
+
+#
+# This needs to execute AFTER common.
+#
+- name: Change MySQL Daemon user password
+  mysql_user: name=debian-sys-maint password={{ daemon_user_pass }} priv=mysql.*:SELECT
