@@ -69,3 +69,13 @@
 - name: Set StatsD runlevel and ensure its running
   service: name=statsd state=running enabled=yes runlevel=5
 
+- name: Add the statsd firewall rules file
+  template: >
+    src=iptables-statsd.j2
+    dest=/etc/iptables.d/statsd
+    mode=0600
+    backup=no
+    owner=root
+    group=root
+  tags:
+    - firewall
