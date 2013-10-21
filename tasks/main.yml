@@ -65,6 +65,8 @@
     - statsd
     - files
     - configs
+  notify:
+    - Restart StatsD
 
 - name: Set StatsD runlevel and ensure its running
   service: name=statsd state=running enabled=yes runlevel=5
