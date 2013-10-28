@@ -1,6 +1,6 @@
 # Firewall rules for the 'statsd' role
 *filter
 :statsd_in - [0:0]
--A INPUT -j statsd_in
+-I INPUT -j statsd_in
 -A statsd_in -p tcp -m tcp -i {{ private_interface }} -s {{ private_network }}/{{ private_netmask }} --dport 8125 -j ACCEPT
 COMMIT
