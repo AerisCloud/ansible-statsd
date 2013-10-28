@@ -125,7 +125,7 @@ Optional Variables:
   librato: {
     email:  "{{ librato_email }}",
     token:  "{{ librato_token }}",
-    source: "{{ inventory_hostname }}"
+    source: "{{ server_hostname }}"
   }
   {% endif %}
   {% if use_ducksboard %}

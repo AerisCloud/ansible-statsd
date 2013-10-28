@@ -29,7 +29,7 @@ Configuration
 
 ```ini
 [statsd]
-statsd-1.dev  ansible_ssh_host=172.16.0.93
+statsd-1  ansible_ssh_host=172.16.0.93
 
 [statsd:vars]
 use_librato = false
@@ -43,7 +43,7 @@ use_instrumental = false
 instrumental_key = API-KEY
 
 use_graphite = false
-graphite_host = graphite-1.dev
+graphite_host = graphite-1
 graphite_port = 2003
 ```
 
