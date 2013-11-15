@@ -10,6 +10,13 @@ It will also of course be possible to stream live stats from
 any application within our datacenter should we see a need for
 this.
 
+In general, we put this on a single machine, alongside the
+[logstash](../logstash) and [collectd](../collectd) roles,
+thus aggregating logs and metrics through a single endpoint.
+
+However, it is very possible to decouple these services and have
+dedicated machines for each.
+
 Available backends
 --------------------
 
@@ -28,23 +35,16 @@ Configuration
 ### inventory/my_inventory
 
 ```ini
-[statsd]
+[statsd:children]
+statsd-somedc-prod
+
+[statsd-somedc-prod]
 statsd-1  ansible_ssh_host=172.16.0.93
 
-[statsd:vars]
-use_librato = false
-librato_email = account@email.com
-librato_token = ACCOUNT-TOKEN
+[ ... skipping ... ]
 
-use_ducksboard = false
-ducksboard_apikey = API-KEY
-
-use_instrumental = false
-instrumental_key = API-KEY
-
-use_graphite = false
-graphite_host = graphite-1
-graphite_port = 2003
+[somedc-prod:children]
+statsd-somedc-prod
 ```
 
 ### Task configuration example
@@ -66,7 +66,18 @@ graphite_port = 2003
 ### Execution
 
 ```bash
-ansible-playbook game.yml -i inventory/my_inventory --limit=statsd
+gameinfra deploy production production/mygame/somedc \
+    --limit=statsd \
+    --extra-vars="use_librato=false" \
+    --extra-vars="librato_email=account@email.com" \
+    --extra-vars="librato_token=ACCOUNT-TOKEN" \
+    --extra-vars="use_ducksboard=false" \
+    --extra-vars="ducksboard_apikey=API-KEY" \
+    --extra-vars="use_instrumental=false" \
+    --extra-vars="instrumental_key=API-KEY" \
+    --extra-vars="use_graphite=false" \
+    --extra-vars="graphite_host=graphite-1" \
+    --extra-vars="graphite_port=2003"
 ```
 
 See also
