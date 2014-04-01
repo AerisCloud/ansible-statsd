@@ -1,5 +1,7 @@
 - name: "Restart StatsD"
-  service: name=statsd state=restarted
+  service: >
+    name=statsd
+    state=restarted
   tags:
     - statsd
 

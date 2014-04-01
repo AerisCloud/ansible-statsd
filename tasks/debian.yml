@@ -4,6 +4,9 @@
 # This needs to execute AFTER common.
 #
 - name: "Change MySQL Daemon user password"
-  mysql_user: name=debian-sys-maint password={{ daemon_user_pass }} priv=mysql.*:SELECT
+  mysql_user: >
+    name=debian-sys-maint
+    password={{ daemon_user_pass }}
+    priv=mysql.*:SELECT
   tags:
     - statsd
