@@ -15,25 +15,25 @@
 
 #####################
 # Common
-- name: Make sure the required node version is installed
+- name: "Make sure the required node version is installed"
   shell: . /opt/nvm/nvm.sh && nvm install {{ node_version }} creates={{ node_dir }}
   tags:
     - statsd
     - nodejs
 
-- name: Create a statsd system user
+- name: "Create a statsd system user"
   user: name=statsd shell=/bin/false createhome=no state=present
   tags:
     - statsd
     - users
 
-- name: Download the StatsD repo from GitHub
+- name: "Download the StatsD repo from GitHub"
   git: repo=https://github.com/etsy/statsd.git dest={{ statsd_path }} update=yes version=v0.6.0
   tags:
     - statsd
     - pkgs
 
-- name: Install required StatsD backends
+- name: "Install required StatsD backends"
   npm: executable={{ npm_path }} name={{ item }} path={{ statsd_path }} state=present
   with_items:
     - statsd-librato-backend
@@ -44,7 +44,7 @@
     - statsd
     - pkgs
 
-- name: Install statsd init.d script
+- name: "Install statsd init.d script"
   template: src=statsd.init.sh.j2 dest=/etc/init.d/statsd owner=statsd group=statsd mode=0700
   notify:
     - Restart StatsD
@@ -52,14 +52,14 @@
     - statsd
     - files
 
-- name: Make sure /etc/statsd exists
+- name: "Make sure /etc/statsd exists"
   file: path=/etc/statsd state=directory owner=statsd group=statsd mode=0700
   tags:
     - statsd
     - files
     - configs
 
-- name: Install StatsD config file
+- name: "Install StatsD config file"
   template: src=config.js.j2 dest=/etc/statsd/config.js owner=statsd group=statsd mode=0600
   tags:
     - statsd
@@ -68,10 +68,12 @@
   notify:
     - Restart StatsD
 
-- name: Set StatsD runlevel and ensure its running
+- name: "Set StatsD runlevel and ensure its running"
   service: name=statsd state=running enabled=yes runlevel=5
+  tags:
+    - statsd
 
-- name: Add the statsd firewall rules file
+- name: "Add the statsd firewall rules file"
   template: >
     src=iptables-statsd.j2
     dest=/etc/iptables.d/statsd
@@ -80,4 +82,5 @@
     owner=root
     group=root
   tags:
+    - statsd
     - firewall
