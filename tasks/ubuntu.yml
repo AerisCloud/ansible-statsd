@@ -6,6 +6,7 @@
     state=installed
   tags:
     - statsd
+    - pkgs
 
 #
 # This needs to execute AFTER common.
