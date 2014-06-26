@@ -118,3 +118,15 @@
     - statsd
     - firewall
     - files
+
+- name: "Add /etc/aeriscloud.d service definition"
+  template: >
+    src=aeriscloud-statsd.j2
+    dest=/etc/aeriscloud.d/statsd
+    mode=0644
+    backup=no
+    owner=root
+    group=root
+  tags:
+    - statsd
+    - files
