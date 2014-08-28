@@ -44,11 +44,12 @@
     - pkgs
 
 - name: "Install required StatsD backends"
-  npm: >
-    executable={{ npm_path }}
-    name={{ item }}
-    path={{ statsd_path }}
-    state=present
+  shell: |
+    chdir={{ statsd_path }}
+
+    source {{ nvm_dir }}/nvm.sh
+    nvm use {{ node_version }}
+    {{ npm_path }} install {{ item }}
   with_items:
     - statsd-librato-backend
     - statsd-instrumental-backend
