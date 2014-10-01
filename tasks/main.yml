@@ -120,6 +120,13 @@
     - firewall
     - files
 
+- name: "Apply the statsd firewall rules right now"
+  shell: |
+    /sbin/iptables-restore -v --noflush < /etc/iptables.d/statsd
+  tags:
+    - statsd
+    - firewall
+
 - name: "Add /etc/aeriscloud.d service definition"
   template: >
     src=aeriscloud-statsd.j2
