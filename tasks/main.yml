@@ -127,6 +127,18 @@
     - statsd
     - firewall
 
+- name: "Ensure the aeriscloud.d directory exists"
+  file: >
+    path=/etc/aeriscloud.d
+    state=directory
+    mode=0755
+    owner=root
+    group=root
+  tags:
+    - statsd
+    - files
+    - announce
+
 - name: "Add /etc/aeriscloud.d service definition"
   template: >
     src=aeriscloud-statsd.j2
