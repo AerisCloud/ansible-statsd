@@ -1,19 +1,4 @@
 #####################
-# CentOS
-- include: centos.yml
-  when: ansible_distribution == 'CentOS'
-
-#####################
-# Ubuntu
-- include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-#####################
-# Debian
-- include: debian.yml
-  when: ansible_distribution == 'Debian'
-
-#####################
 # Common
 - name: "Make sure the required node version is installed"
   shell: |
@@ -45,6 +30,7 @@
 
 - name: "Install required StatsD backends"
   shell: |
+    executable=/bin/bash
     chdir={{ statsd_path }}
 
     source {{ nvm_dir }}/nvm.sh

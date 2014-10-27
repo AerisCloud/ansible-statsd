@@ -4,8 +4,15 @@
 #
 # chkconfig: 3 50 50
 # description: StatsD init.d
-. /etc/rc.d/init.d/functions
 . /opt/nvm/nvm.sh
+
+success() {
+    echo $@
+}
+
+failure() {
+    echo $@
+}
 
 prog=statsd
 STATSDDIR={{ statsd_path }}
@@ -30,7 +37,7 @@ start() {
 		RETVAL=1
 	else
 		# Run as process
-		su ${USER} -s /bin/bash -c "node ${statsd} ${CONFFILE}" >> ${LOG} 2>> ${ERRLOG} &
+		su ${USER} -s /bin/bash -c "PATH=${PATH} node ${statsd} ${CONFFILE}" >> ${LOG} 1>> ${ERRLOG} &
 		RETVAL=$?
 
 		# Store PID
@@ -45,8 +52,10 @@ start() {
 }
 
 stop() {
+    [ ! -f ${pidfile} ] && echo "${prog} is not running" && return
+
 	echo -n $"Stopping $prog: "
-	killproc -p ${pidfile}
+    kill -TERM $(cat ${pidfile})
 	RETVAL=$?
 	echo
 	[ $RETVAL = 0 ] && rm -f ${pidfile}
@@ -61,8 +70,20 @@ case "$1" in
 	stop
 	;;
   status)
-	status -p ${pidfile} ${prog}
-	RETVAL=$?
+    if
+      [ ! -f ${pidfile} ]
+    then
+      echo "${prog} is not running"
+      RETVAL=1
+    elif
+	  kill -0 $(cat ${pidfile})
+    then
+        echo "${prog} is running (pid: $(cat ${pidfile}))"
+      RETVAL=0
+    else
+        echo "${prog} is dead (pid: $(cat ${pidfile}))"
+      RETVAL=2
+    fi
 	;;
   restart)
 	stop
