@@ -64,7 +64,7 @@ statsd-somedc-prod
 ### Execution
 
 ```bash
-aeriscloud provision production production/mygame/somedc \
+cloud provision production production/mygame/somedc \
     --limit=statsd \
     --extra-vars="use_librato=false" \
     --extra-vars="librato_email=account@email.com" \
