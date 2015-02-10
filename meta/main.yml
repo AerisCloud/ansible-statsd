@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Marc Trudel <mtrudel@wizcorp.jp>
+  description: Installs statsd on a server
+  company: Wizcorp K.K.
+  license: BSD
+  min_ansible_version: 1.2
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: debian
+      versions:
+        - wheezy
+    - name: ubuntu
+      versions:
+        - all
+  categories:
+    - monitoring
