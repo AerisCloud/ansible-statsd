@@ -3,7 +3,7 @@ galaxy_info:
   description: Installs statsd on a server
   company: Wizcorp K.K.
   license: BSD
-  min_ansible_version: 1.2
+  min_ansible_version: 1.8.1
   platforms:
     - name: EL
       versions:
