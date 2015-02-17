@@ -2,7 +2,7 @@ galaxy_info:
   author: Marc Trudel <mtrudel@wizcorp.jp>
   description: Installs statsd on a server
   company: Wizcorp K.K.
-  license: BSD
+  license: MIT
   min_ansible_version: 1.8.1
   platforms:
     - name: EL
