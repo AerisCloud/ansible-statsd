@@ -17,3 +17,8 @@ galaxy_info:
         - all
   categories:
     - monitoring
+dependencies:
+  - role: firewall
+    service_name: statsd
+    tags:
+      - statsd

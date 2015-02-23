@@ -93,26 +93,6 @@
   tags:
     - statsd
 
-- name: "Add the statsd firewall rules file"
-  template: >
-    src=iptables-statsd.j2
-    dest=/etc/iptables.d/statsd
-    mode=0600
-    backup=no
-    owner=root
-    group=root
-  tags:
-    - statsd
-    - firewall
-    - files
-
-- name: "Apply the statsd firewall rules right now"
-  shell: |
-    /sbin/iptables-restore -v --noflush < /etc/iptables.d/statsd
-  tags:
-    - statsd
-    - firewall
-
 - name: "Add AerisCloud service definition"
   aeriscloud_service:
     name: statsd
