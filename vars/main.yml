@@ -1,7 +1,3 @@
 statsd_path: /opt/statsd
 
 node_version: "v0.10.20"
-
-node_dir: "{{ nvm_dir }}/{{ node_version }}"
-npm_path: "{{ node_dir }}/bin/npm"
-node_path: "{{ node_dir }}/bin/node"

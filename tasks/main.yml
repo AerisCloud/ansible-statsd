@@ -35,7 +35,7 @@
 
     source {{ nvm_dir }}/nvm.sh
     nvm use {{ node_version }}
-    {{ npm_path }} install {{ item }}
+    npm install {{ item }}
   with_items:
     - statsd-librato-backend
     - statsd-instrumental-backend
