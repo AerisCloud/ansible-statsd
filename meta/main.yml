@@ -19,9 +19,6 @@ galaxy_info:
     - monitoring
 dependencies:
   - role: nodejs
-    node_version: v0.10.20
-    tags:
-      - statsd
   - role: firewall
     service_name: statsd
     tags:
