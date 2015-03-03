@@ -2,7 +2,7 @@
 # Common
 - name: "Make sure the required node version is installed"
   shell: |
-    creates={{ node_dir }}
+    creates={{ nvm_dir }}/{{ node_version }}/bin
     . /opt/nvm/nvm.sh && nvm install {{ node_version }}
   tags:
     - statsd
