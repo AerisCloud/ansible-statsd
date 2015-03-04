@@ -2,8 +2,8 @@
 # Common
 - name: "Make sure the required node version is installed"
   shell: |
-    creates={{ nvm_dir }}/{{ node_version }}/bin
-    . /opt/nvm/nvm.sh && nvm install {{ node_version }}
+    creates={{ nvm_dir }}/{{ statsd_node_version }}/bin
+    . {{ nvm_dir }}/nvm.sh && nvm install {{ statsd_node_version }}
   tags:
     - statsd
     - nodejs
@@ -34,7 +34,7 @@
     chdir={{ statsd_path }}
 
     source {{ nvm_dir }}/nvm.sh
-    nvm use {{ node_version }}
+    nvm use {{ statsd_node_version }}
     npm install {{ item }}
   with_items:
     - statsd-librato-backend

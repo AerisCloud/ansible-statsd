@@ -4,7 +4,7 @@
 #
 # chkconfig: 3 50 50
 # description: StatsD init.d
-. /opt/nvm/nvm.sh
+. {{ nvm_dir }}/nvm.sh
 
 success() {
     echo $@
@@ -29,7 +29,7 @@ USER=statsd
 start() {
 	echo -n $"Starting $prog: "
 	cd ${STATSDDIR}
-	nvm use {{ node_version }} || failure "Could not find node.js";
+	nvm use {{ statsd_node_version }} || failure "Could not find node.js";
 
 	# See if it's already running. Look *only* at the pid file.
     if [ -f ${pidfile} ] && kill -SIGCONT $(cat ${pidfile}) 2> /dev/null; then
