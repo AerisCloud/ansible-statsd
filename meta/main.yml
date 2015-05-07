@@ -20,6 +20,6 @@ galaxy_info:
 dependencies:
   - role: nodejs
   - role: firewall
-    service_name: statsd
+    role_name: statsd
     tags:
       - statsd
