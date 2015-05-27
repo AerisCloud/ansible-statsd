@@ -3,7 +3,17 @@
 # StatsD
 #
 # chkconfig: 3 50 50
-# description: StatsD init.d
+
+### BEGIN INIT INFO
+# Provides:          statsd
+# Required-Start:    $remote_fs $network $local_fs $syslog
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: StatsD init.d
+# Description:       StatsD init.d
+### END INIT INFO
+
 . {{ nvm_dir }}/nvm.sh
 
 success() {

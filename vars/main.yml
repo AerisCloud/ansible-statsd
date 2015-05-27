@@ -1,3 +1,5 @@
 statsd_path: /opt/statsd
 
-statsd_node_version: "v0.10.20"
+statsd_version: "v0.7.2"
+
+statsd_node_version: "v0.10.38"
