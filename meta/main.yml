@@ -18,7 +18,7 @@ galaxy_info:
   categories:
     - monitoring
 dependencies:
-  - role: nodejs
+  - role: aeriscloud.nodejs
   - role: firewall
     role_name: statsd
     tags:
