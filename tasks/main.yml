@@ -1,12 +1,10 @@
 #####################
 # Common
 - name: "Make sure the required node version is installed"
-  shell: |
-    executable=/bin/bash
-    creates={{ nvm_dir }}/{{ statsd_node_version }}/bin
-
-    source {{ nvm_dir }}/nvm.sh
-    nvm install {{ statsd_node_version }}
+  nvm: >
+    version={{ statsd_node_version }}
+    state=present
+    nvm_dir={{ nvm_dir }}
   tags:
     - statsd
     - nodejs
@@ -95,15 +93,3 @@
     runlevel=5
   tags:
     - statsd
-
-- name: "Add AerisCloud service definition"
-  aeriscloud_service:
-    name: statsd
-    services:
-      - name: Statsd
-        port: 8125
-      - name: Statsd admin interface
-        port: 8126
-  tags:
-    - statsd
-    - announce
