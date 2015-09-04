@@ -1,0 +1,12 @@
+---
+name: "Aeriscloud.statsd"
+playbook:
+- hosts: all
+  sudo: true
+  roles:
+  - role: "@ROLE_NAME@"
+  tasks:
+  - name: "Ensure statsd is running"
+    service:
+      name: statsd
+      state: started
