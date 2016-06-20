@@ -9,16 +9,16 @@ galaxy_info:
       versions:
         - 6
         - 7
-    - name: debian
+    - name: Debian
       versions:
         - wheezy
         - jessie
-    - name: ubuntu
+    - name: Ubuntu
       versions:
         - all
   categories:
     - monitoring
 dependencies:
-  - role: aeriscloud.nodejs
+  - role: AerisCloud.nodejs
     tags:
       - statsd
